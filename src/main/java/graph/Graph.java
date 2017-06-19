@@ -12,10 +12,6 @@ public class Graph {
 
     private int[][] adjacentMatrix;
     private Set<Vertex> vertices = new HashSet<Vertex>();
-    private Edge[] edges;
-    public void init(){
-        System.out.print("hello graph");
-    }
     public void initializeByMatrix(String inputs,String vertexName){
         inputs = inputs.replaceAll("\\s*","");
         initializeVertexListForMatrix(vertexName);
