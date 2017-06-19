@@ -46,7 +46,7 @@ public class GraphBuilder {
     }
 
     private int getGetIndex(int index, char letter, Vertex v) {
-        if(-1==index){
+        if(INVALID_NUMBER==index){
           return v.getIndexByName(String.valueOf(letter));
         }
         return index;
