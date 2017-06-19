@@ -1,9 +1,8 @@
 package graph;
 
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by 111 on 6/18/2017.
@@ -11,17 +10,16 @@ import java.util.Set;
 public class Graph {
 
     private int[][] adjacentMatrix;
-    private Set<Vertex> vertices = new HashSet<Vertex>();
-    public void initializeByMatrix(String inputs,String vertexName){
-        inputs = inputs.replaceAll("\\s*","");
-        initializeVertexListForMatrix(vertexName);
-        initializeData();
-        initializeEdgeListForMatrix(inputs);
+    private List<Vertex> vertices ;
 
+    public Graph(int graphSize) {
+        adjacentMatrix=new int[graphSize][graphSize];
+        vertices = new ArrayList<Vertex>(graphSize);
+        initializeData();
     }
 
+
     private void initializeData() {
-        adjacentMatrix = new int[vertices.size()][vertices.size()];
         for (int i = 0; i < adjacentMatrix.length; i++) {
             for (int j = 0; j < adjacentMatrix[i].length; j++) {
                 adjacentMatrix[i][j]=0;
@@ -29,41 +27,19 @@ public class Graph {
         }
     }
 
-    private void initializeEdgeListForMatrix(String inputs) {
-        String[] result = inputs.split(",");
-        int startIndex=-1;
-        int endIndex=-1;
-
-        for (int i = 0; i < result.length; i++) {
-            char[] letters =result[i].toCharArray();
-            Iterator<Vertex> iter =vertices.iterator();
-            while (iter.hasNext()){
-                Vertex v = iter.next();
-                if(-1==startIndex){
-                    startIndex=v.getIndexByName(String.valueOf(letters[0]));
-                }
-                if(-1==endIndex){
-                    endIndex=v.getIndexByName(String.valueOf(letters[1]));
-                }
-
-            }
-            if(startIndex>=0 && endIndex>=0){
-                adjacentMatrix[startIndex][endIndex]=Integer.valueOf(String.valueOf(letters[2]));
-                startIndex=-1;
-                endIndex=-1;
-            }
-        }
-    }
-
-    public void initializeVertexListForMatrix(String inputs) {
-        char[] results = inputs.toCharArray();
-        for (int i = 0; i < results.length; i++) {
-            vertices.add(new Vertex(String.valueOf(results[i]),i));
-        }
-    }
-
     public int[][] getAdjacentMatrix() {
         return this.adjacentMatrix;
     }
 
+    public void insertVertex(String name, int index) {
+        vertices.add(new Vertex(name,index));
+    }
+
+    public void insertEdge(int startIndex, int endIndex, int weight) {
+            adjacentMatrix[startIndex][endIndex]=weight;
+    }
+
+    public List<Vertex> getVertices() {
+        return vertices;
+    }
 }
