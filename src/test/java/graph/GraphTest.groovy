@@ -12,7 +12,8 @@ class GraphTest extends Specification {
     def "test initialize Matrix by input of string"(){
         def graph = new Graph()
         def input = "AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7"
-        graph.initializeByMatrix(input)
+        def vertexName = "ABCDE"
+        graph.initializeByMatrix(input,vertexName)
         def result = graph.getAdjacentMatrix()
         //the adjacent matrix is like this:
         //       A[0]  B[1]  C[2]  D[3]  E[4]
@@ -29,6 +30,7 @@ class GraphTest extends Specification {
         0|1||5
         4|1||3
         2|3||8
+        0|4||7
 
     }
 }

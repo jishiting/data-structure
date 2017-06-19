@@ -8,15 +8,23 @@ import java.util.List;
  */
 public class Vertex {
     private final String vertexName;
+    private int index=0;
     private List<Edge> edges = new ArrayList<Edge>();
 
-    public Vertex(String vertexName) {
+    public Vertex(String vertexName,int index) {
         this.vertexName = vertexName;
+        this.index = index;
     }
     public void addEdge(Edge edge){
         edges.add(edge);
     }
 
+    public int getIndexByName(String vertexName){
+        if(this.vertexName.equals(vertexName)){
+            return this.index;
+        }
+        return -1;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

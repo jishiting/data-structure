@@ -2,6 +2,7 @@ package graph;
 
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -15,16 +16,12 @@ public class Graph {
     public void init(){
         System.out.print("hello graph");
     }
-    public void initializeByMatrix(String inputs){
-        inputs = inputs.replace("\\s","");
-        String [] splitInputs = inputs.split(",");
-        initializeVertexListForMatrix(inputs);
-        initializeEdgeListForMatrix(inputs);
+    public void initializeByMatrix(String inputs,String vertexName){
+        inputs = inputs.replaceAll("\\s*","");
+        initializeVertexListForMatrix(vertexName);
         initializeData();
-        for (int i = 0; i < splitInputs.length; i++) {
-            char[] tempResult = splitInputs[i].toCharArray();
+        initializeEdgeListForMatrix(inputs);
 
-        }
     }
 
     private void initializeData() {
@@ -37,14 +34,35 @@ public class Graph {
     }
 
     private void initializeEdgeListForMatrix(String inputs) {
+        String[] result = inputs.split(",");
+        int startIndex=-1;
+        int endIndex=-1;
 
+        for (int i = 0; i < result.length; i++) {
+            char[] letters =result[i].toCharArray();
+            Iterator<Vertex> iter =vertices.iterator();
+            while (iter.hasNext()){
+                Vertex v = iter.next();
+                if(-1==startIndex){
+                    startIndex=v.getIndexByName(String.valueOf(letters[0]));
+                }
+                if(-1==endIndex){
+                    endIndex=v.getIndexByName(String.valueOf(letters[1]));
+                }
+
+            }
+            if(startIndex>=0 && endIndex>=0){
+                adjacentMatrix[startIndex][endIndex]=Integer.valueOf(String.valueOf(letters[2]));
+                startIndex=-1;
+                endIndex=-1;
+            }
+        }
     }
 
-    private void initializeVertexListForMatrix(String inputs) {
-        inputs = inputs.replaceAll("[^A-Z]","");
+    public void initializeVertexListForMatrix(String inputs) {
         char[] results = inputs.toCharArray();
-        for (char c :results) {
-            vertices.add(new Vertex(String.valueOf(c)));
+        for (int i = 0; i < results.length; i++) {
+            vertices.add(new Vertex(String.valueOf(results[i]),i));
         }
     }
 
