@@ -20,4 +20,30 @@ public class Vertex {
         }
         return -1;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vertex)) return false;
+
+        Vertex vertex = (Vertex) o;
+
+        if (index != vertex.index) return false;
+        return vertexName != null ? vertexName.equals(vertex.vertexName) : vertex.vertexName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = vertexName != null ? vertexName.hashCode() : 0;
+        result = 31 * result + index;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Vertex{" +
+                "vertexName='" + vertexName + '\'' +
+                ", index=" + index +
+                '}';
+    }
 }
