@@ -48,9 +48,9 @@ public class Graph {
 
     public void DFS(int index){
         isVisited[index]=1;
+        System.out.println(vertices.get(index).toString());
         for (int i = 0; i < vertices.size(); i++) {
             if(adjacentMatrix[index][i]!=0 && isVisited[i]==0){
-                System.out.println(vertices.get(i).toString());
                 DFS(i);
             }
         }
@@ -71,9 +71,9 @@ public class Graph {
         isVisited[index]=1;
         while(!queue.isEmpty()){
             int now = queue.poll();
+            System.out.println(vertices.get(now));
             for (int i = 0; i < vertices.size(); i++) {
                 if(adjacentMatrix[now][i]!=0 && isVisited[i]==0){
-                    System.out.println(vertices.get(i));
                     isVisited[i]=1;
                     queue.add(i);
                 }
