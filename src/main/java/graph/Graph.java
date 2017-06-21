@@ -48,13 +48,12 @@ public class Graph {
 
     public void DFS(int index){
         isVisited[index]=1;
-        System.out.println(vertices.get(index).toString());
         for (int i = 0; i < vertices.size(); i++) {
             if(adjacentMatrix[index][i]!=0 && isVisited[i]==0){
+                System.out.println(vertices.get(i).toString());
                 DFS(i);
             }
         }
-
     }
     public void DeepTraGraph(){
         for (int i = 0; i < vertices.size(); i++) {
@@ -68,21 +67,28 @@ public class Graph {
     }
     public void BFS(int index){
         Queue<Integer> queue = new LinkedList<Integer>();
+        queue.add(index);
         isVisited[index]=1;
-        for (int i = 0; i < vertices.size(); i++) {
-            queue.add(index);
-            if(!queue.isEmpty()){
-                int temp = queue.poll();
-
+        while(!queue.isEmpty()){
+            int now = queue.poll();
+            for (int i = 0; i < vertices.size(); i++) {
+                if(adjacentMatrix[now][i]!=0 && isVisited[i]==0){
+                    System.out.println(vertices.get(i));
+                    isVisited[i]=1;
+                    queue.add(i);
+                }
             }
         }
+
     }
     public void BreathFirstTraGraph(){
         for (int i = 0; i < vertices.size(); i++) {
-            isVisited[i]=0;
+            isVisited[i] = 0;
         }
         for (int i = 0; i < vertices.size(); i++) {
-            BFS(i);
+            if(isVisited[i]==0){
+                BFS(i);
+            }
         }
     }
     public static void main (String[] args){
@@ -93,5 +99,7 @@ public class Graph {
         gb.buildGraph(vertexName,input);
         Graph graph = gb.getGraph();
         graph.DeepTraGraph();
+        System.out.println("this is the breadth first search");
+        graph.BreathFirstTraGraph();
     }
 }
